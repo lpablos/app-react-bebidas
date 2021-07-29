@@ -1,12 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
+
+
 // Hacemos referencia al context que vamos a usar
 import { CategoriaContext } from '../context/CategoriasContext'
 
 const Formulario = () => {
     // Cun useContext llamamos al Context que vamos a usar 
     // y desctructurar sus valores del value
-    const {saludo} = useContext(CategoriaContext)
-    console.log("Este es el state del context", saludo);
+    const {categorias} = useContext(CategoriaContext)
+    
+    // El valor selecionado
+    const [busqueda, setBusqueda] = useState({
+        nombre: '',
+        categoria: ''
+    })
+    // Funcion para leer los contenidos
+    const obtenerDatosReceta = e => {        
+        setBusqueda({
+            ...busqueda,
+            [e.target.name] : e.target.value
+        })
+    }
+    // Values para los inputs
+    const { nombre, categoria } =  busqueda
+
     return (
         <form 
             className="col-12"
@@ -23,14 +40,25 @@ const Formulario = () => {
                     name="nombre"
                     className="form-control"
                     placeholder="Buscar por ingrediente"
+                    onChange={ obtenerDatosReceta }
+                    value={nombre}
                     />
                 </div>
                 <div className="col-md-4">
                     <select 
                         className="form-control"
                         name="categoria" 
+                        onChange={ obtenerDatosReceta }
+                        value={categoria}
                     >
                         <option value="">Seleciona Categoria</option>
+                        { categorias.map( categoria =>(
+                            <option 
+                                key={categoria.strCategory} 
+                                value={categoria.strCategory}>
+                                    {categoria.strCategory}
+                            </option>
+                        )) }
                     </select>
                 </div>
                 <div className="col-md-4">

@@ -1,4 +1,5 @@
-import react, { createContext, useState } from 'react'
+import react, { createContext, useState, useEffect } from 'react'
+import axios from 'axios'
 
 // crear context 1
 export const CategoriaContext = createContext()
@@ -7,11 +8,19 @@ export const CategoriaContext = createContext()
 
 const CategoriaProvider = (props) => {
     // Crear Sate del context
-    const [saludo, setSaludo] = useState('Hola LJPS')
+    const [categorias, setCategorias] = useState([])
+    useEffect(() => {
+        const obtenerCategorias = async() => {
+            const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+            const categorias = await axios.get(url)        
+            setCategorias(categorias.data.drinks)
+        }
+        obtenerCategorias()
+     }, [])
     return(
         // Crea Referencia del Context definido y aceder a la propiedad de provideer
         // En el value das el acceso al recurso para ser utilizado en este caso al sate
-        <CategoriaContext.Provider value={{saludo}}>
+        <CategoriaContext.Provider value={{categorias}}>
             {props.children}
         </CategoriaContext.Provider>
     )
