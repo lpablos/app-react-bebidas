@@ -1,14 +1,19 @@
 import React, { useContext, useState } from 'react'
-
-
 // Hacemos referencia al context que vamos a usar
 import { CategoriaContext } from '../context/CategoriasContext'
+import { RecetasContext } from '../context/RecetasContext'
+
 
 const Formulario = () => {
+    
+    // _____________Todo para el context__________________
     // Cun useContext llamamos al Context que vamos a usar 
     // y desctructurar sus valores del value
     const {categorias} = useContext(CategoriaContext)
+    const {setBusquedaReceta, setGuardarConsulta} = useContext(RecetasContext)
     
+
+    // _____________Todo para el formulario_______________
     // El valor selecionado
     const [busqueda, setBusqueda] = useState({
         nombre: '',
@@ -29,6 +34,11 @@ const Formulario = () => {
             className="col-12"
             action="" 
             method="post"
+            onSubmit={ e=>{
+                e.preventDefault()
+                setBusquedaReceta(busqueda)
+                setGuardarConsulta(true)
+            }}
         >
             <fieldset className="text-center">
                 <legend>Busca bebidas por Categorias o Ingredientes</legend>
