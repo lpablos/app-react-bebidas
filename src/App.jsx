@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import Formulario from './components/Formulario'
+import ListadoRecetas from './components/ListadoRecetas'
 import CategotiaProvider from './context/CategoriasContext'
 import RecetasProvider from './context/RecetasContext'
 
@@ -14,6 +15,7 @@ const App = () => {
           <div className="row">
             <Formulario/>
           </div>
+          <ListadoRecetas />
         </div>
       </RecetasProvider>
     </CategotiaProvider>
