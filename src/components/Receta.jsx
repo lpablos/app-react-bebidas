@@ -7,6 +7,14 @@ const Receta = ({receta}) => {
                 <h2 className="card-header">
                     {receta.strDrink}
                 </h2>
+                <img src={receta.strDrinkThumb} />
+                <div className="card-body">
+                    <button
+                        className="btn btn-primary btn-block"
+                    >
+                        Ver Receta
+                    </button>
+                </div>
             </div>
 
         </div>
