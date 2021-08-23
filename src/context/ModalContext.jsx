@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect } from 'react'
 import Axios from 'axios'
 
+
 // Creat context 
 export const ModalContext = createContext();
 
 const ModalProvider = (props) => {
     // Identidad para busqueda de receta
     const [idReceta, setIdReceta] = useState(null)
-    const [receta, setReceta] = useState({})
+    const [informacion, setInformacion] = useState({})
     // una vex tenemos la identydad hacemos la llamada aa la api
     useEffect(() => {
         const obtenReceta = async() =>{
@@ -16,7 +17,7 @@ const ModalProvider = (props) => {
             
             const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceta}`
             const result = await Axios.get(url)            
-            setReceta(result.data.drinks[0])
+            setInformacion(result.data.drinks[0])
 
         }
         obtenReceta()
@@ -25,6 +26,8 @@ const ModalProvider = (props) => {
     return (
         <ModalContext.Provider
             value={{
+                informacion,
+                setInformacion,
                 setIdReceta
             }}
         >
